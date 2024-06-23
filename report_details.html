@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Hostel</title>
+
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Include custom CSS for styling -->
+    <style>
+        /* Add your custom CSS styles here */
+        .form-container {
+            margin-top: 20px;
+        }
+        .form-group textarea {
+            height: 200px; /* Enlarge the textarea */
+        }
+        .custom-button {
+            margin-top: 20px;
+            width: 100%; /* Make the button span the full width */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">Report Hostel</h1>
+                <div class="form-container">
+                    <form>
+                        <div class="form-group">
+                            <label for="issueTextarea">What's Wrong with this Hostel</label>
+                            <textarea class="form-control" id="issueTextarea" rows="10" placeholder="Type here your issue..." maxlength="700"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactInput">Your contact (optional)</label>
+                            <input type="text" class="form-control" id="contactInput" placeholder="Phone or Email">
+                        </div>
+                        <button type="submit" class="btn btn-success custom-button">Report</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

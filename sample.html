@@ -1,0 +1,192 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-success mb-0 mx-1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)">
+            <img src="Hostel logo white.png" alt="Hostel Logo" style="width: 50px; height: 50px;" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)">
+                        <i class="fa fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="other.html">
+                        <i class="fa fa-bookmark"></i> Saved Hostels
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html">
+                        <i class="fa fa-user"></i> Profile
+                    </a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="input-group">
+                    <input id="filterInput" type="text" class="form-control search-input" placeholder="Search by location, amount, or distance (km)">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+
+
+// Save button functionality
+    var saveButtons = document.querySelectorAll('.save-button');
+
+    saveButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // Get hostel details
+            var hostelCard = button.closest('.card');
+            var hostelDetails = {
+                name: hostelCard.querySelector('.card-title').innerText,
+                location: hostelCard.querySelector('.card-text.card-location').innerText,
+                amount: hostelCard.querySelector('.card-text.card-amount').innerText,
+                distance: hostelCard.querySelector('.card-text.card-distance').innerText
+            };
+
+            // Get saved hostels from local storage
+            var savedHostels = JSON.parse(localStorage.getItem('savedHostels')) || [];
+
+            // Check if the hostel is already saved
+            var isAlreadySaved = savedHostels.some(function(savedHostel) {
+                return savedHostel.name === hostelDetails.name;
+            });
+
+            // If hostel is not already saved, add it to the list of saved hostels
+            if (!isAlreadySaved) {
+                savedHostels.push(hostelDetails);
+                localStorage.setItem('savedHostels', JSON.stringify(savedHostels));
+                alert('Hostel saved successfully!');
+            } else {
+                alert('Hostel is already saved!');
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-success mb-0 mx-1">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="javascript:void(0)">
+        <img src="Hostel logo white.png" alt="Hostel Logo" style="width: 50px; height: 50px;" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mynavbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="other.html">Other Hostels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="restaurants.html">Restaurants</a>
+          </li>
+
+          <li class="nav-item">
+            <div class="input-group">
+                <input id="filterInput" type="text" class="form-control search-input" placeholder="Search by location, amount, or distance (km)">
+            </div>
+        </li>
+        
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+  /*$(document).ready(function() {
+    // Filter functionality
+    $('#filterInput').on('input', function() {
+        var searchText = $(this).val().toLowerCase();
+        $('.card').each(function() {
+            var hostel = $(this);
+            var location = hostel.find('.card-location').text().toLowerCase();
+            var amount = hostel.find('.card-amount').text().toLowerCase();
+            var distance = hostel.find('.card-distance').text().toLowerCase();
+
+            // Check if any of the hostel details match the search text
+            var match = location.includes(searchText) || amount.includes(searchText) || distance.includes(searchText);
+            hostel.toggle(match);
+        });
+    });
+});*/
+
+
+
+
+
+
+$(document).ready(function() {
+    $('#filterInput').on('input', function() {
+        var searchText = $(this).val().toLowerCase();
+        var searchNumber = parseFloat(searchText);
+
+        $('.card').each(function() {
+            var hostel = $(this);
+            var location = hostel.find('.card-location').text().toLowerCase();
+            var amountText = hostel.find('.card-amount').text().toLowerCase();
+            var distanceText = hostel.find('.card-distance').text().toLowerCase();
+
+            var amounts = amountText.match(/\d+/g).map(Number);
+            var distance = parseFloat(distanceText.match(/\d+/));
+
+            var matchLocation = location.includes(searchText);
+            var matchAmount = amounts.some(amount => amount === searchNumber);
+            var matchDistance = distance === searchNumber;
+
+            var match = matchLocation || matchAmount || matchDistance;
+            hostel.toggle(match);
+        });
+    });
+});
+
+
+
+
+
+$(document).ready(function() {
+    $('#filterInput').on('input', function() {
+        var searchText = $(this).val().toLowerCase();
+        var searchNumber = parseFloat(searchText);
+
+        $('.card').each(function() {
+            var hostel = $(this);
+            var location = hostel.find('.card-location').text().toLowerCase();
+            var amountText = hostel.find('.card-amount').text().toLowerCase();
+            var distanceText = hostel.find('.card-distance').text().toLowerCase();
+
+            // Extract numeric values from text
+            var amounts = amountText.match(/\d+/g).map(Number);
+            var distance = parseFloat(distanceText.match(/\d+/));
+
+            // Check for matches
+            var matchLocation = location.includes(searchText);
+            var matchAmount = amounts.some(amount => amount === searchNumber);
+            var matchDistance = distance === searchNumber;
+
+            // Toggle display
+            var match = matchLocation || matchAmount || matchDistance;
+            hostel.toggle(match);
+        });
+    });
+});
